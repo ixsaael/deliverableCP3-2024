@@ -106,7 +106,7 @@ def gen_athlete_page(data, outfile):
     <!-- Navigation links -->
     <nav>
         <ul>
-            <li><a href="./../index.html">Home Page</a></li>
+            <li><a href=".././index.html">Home Page</a></li>
             <li>{nav_html}</li>
             <li>{nav_html2}</li>
         </ul>
