@@ -1,0 +1,432 @@
+/* ====== THEME VARIABLES ====== */
+:root {
+    --bg-color: #b3d9e7;
+    --text-color: #000000;
+    --accent-color: #005f87;
+    --button-bg-color: #004766;
+    --button-text-color: #ffffff;
+    --progress-bar-bg: #e0e0e0;
+    --progress-fill-color: #005f87;
+    --tab-bg-color: #e0e0e0;
+    --tab-text-color: #333;
+    --card-bg-color: #ffffff;
+    --link-text-color: #BD40F3;
+    --legend-bg-color: #004766;
+    --legend-text-color: #f7f7f7;
+    --legend-border-color: #ccc;
+}
+
+/* Dark Mode */
+[data-theme="dark"] {
+    --bg-color: #2e2e2e;
+    --text-color: #ffffff;
+    --accent-color: #075589;
+    --button-bg-color: #075589;
+    --progress-bar-bg: #444444;
+    --progress-fill-color: #075589;
+    --tab-bg-color: #4e4c4c;
+    --tab-text-color: #e0e0e0;
+    --card-bg-color: #4e4c4c;
+    --link-text-color: #ba80d2;
+    --legend-bg-color: #075589;
+    --legend-text-color: #fff;
+    --legend-border-color: #444;
+}
+
+/* High Contrast Mode */
+[data-theme="high-contrast"] {
+    --bg-color: #000000;              /* Black background */
+    --text-color: #ac2828;            /* Off-white text */
+    --accent-color: #FFA500;           /* Bright orange for accents */
+    --button-bg-color: #FFFF00;       /* Bright yellow background for buttons */
+    --button-text-color: #000000;      /* Black text for buttons */
+    --progress-bar-bg: #F5F5F5;       /* Off-white for progress bar background */
+    --progress-fill-color: #FFA500;    /* Orange for progress bar fill */
+    --tab-bg-color: #000000;          /* Black background for tabs */
+    --tab-text-color: #FFFF00;        /* Yellow text for tabs */
+    --card-bg-color: #4bf442;         /* Light green for card background */
+    --link-text-color: #b303ff;       /* Bright purple for links */
+    --legend-bg-color: #FFA500;       /* Bright orange for legend background */
+    --legend-text-color: #FFD700;     /* Gold for legend text */
+    --legend-border-color: #FFD700;   /* Gold for legend border */
+}
+
+/* ====== GLOBAL STYLES ====== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    overflow-x: hidden;
+}
+
+.container {
+    width: 90%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+/* ====== TYPOGRAPHY ====== */
+h1, h2, h3 {
+    color: var(--text-color);
+    margin-bottom: 0.5em;
+}
+
+h1 {
+    font-size: clamp(1.8rem, 2.5vw, 2.2rem);
+}
+
+p, li {
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    color: var(--text-color);
+}
+
+a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 12px;
+}
+
+a:hover,
+a:focus {
+    color: var(--accent-color);
+    background-color: var(--progress-bar-bg);
+    padding: 2px 4px;
+    border-radius: 4px;
+    text-decoration: underline;
+}
+
+a:visited {
+    color: var(--link-text-color);
+}
+
+:focus {
+    outline: 3px solid var(--accent-color);
+    outline-offset: 3px;
+}
+
+/* ====== BUTTONS ====== */
+.button {
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    padding: 0.75rem 1rem;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+}
+
+.button:hover,
+.button:focus {
+    background-color: var(--accent-color);
+}
+
+/* ====== THEME TOGGLE BUTTONS ====== */
+.theme-toggle-container {
+    position: fixed;
+    bottom: 30px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.toggle-arrow {
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+}
+
+.theme-options {
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.theme-options.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.theme-options button {
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    border: none;
+    width: 75px;
+    height: 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 0.75rem;
+    position: absolute;
+}
+
+.theme-options button:nth-child(1) { top: -90px; left: -30px; }
+.theme-options button:nth-child(2) { top: -50px; left: -85px; }
+.theme-options button:nth-child(3) { top: -7px; left: -76px; }
+
+/* ====== HEADER ====== */
+.sticky-header {
+    position: sticky;
+    top: 0;
+    background-color: var(--accent-color);
+    color: var(--button-text-color);
+    padding: 0.5rem; /* Reduced padding */
+    font-size: 1.2rem; /* Reduced font size */
+    text-align: center;
+    z-index: 3;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.sticky-header h1 {
+    color: #ffffff; /* White color for athlete name */
+    font-size: 1.5rem; /* Adjust header font size */
+    margin: 0; /* Remove any margin */
+}
+
+/* ====== NAVIGATION & DROPDOWNS ====== */
+.button-row {
+    display: flex; /* Use flexbox for alignment */
+    justify-content: center; /* Center buttons in a row */
+    align-items: center;
+    margin-top: 20px;
+    padding: 10px; /* Padding around the button row */
+}
+
+.nav-button {
+    padding: 5px 10px; /* Adjust button padding */
+    font-size: 14px; /* Increase font size for visibility */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    margin: 5px; /* Margin between buttons */
+    transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+    background-color: #45a049; /* Hover color */
+}
+
+details {
+    position: relative;
+}
+
+details[open] div.dropdown-content { display: block; }
+
+div.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 5px;
+    background-color: var(--tab-bg-color);
+    border: 1px solid #ccc;
+    padding: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 4;
+    width: max-content;
+}
+
+.nav-section ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    padding: 0;
+}
+
+/* ====== TABLES ====== */
+.table-container {
+    overflow-x: auto;
+    max-width: 100%;
+    width: 100%;
+}
+
+#athlete-sr-table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    color: var(--text-color);
+}
+
+#athlete-sr-table th, #athlete-sr-table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid var(--text-color);
+}
+
+th {
+    position: sticky;
+    top: 0;
+    background-color: var(--accent-color);
+    color: var(--button-text-color);
+    z-index: 1;
+}
+
+tr:nth-child(even) {
+    background-color: #e6f7ff;
+}
+
+[data-theme="dark"] tr:nth-child(even) {
+    background-color: #3a3a3a;
+}
+
+/* ====== LIGHTBOX ====== */
+.lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1100;
+}
+
+.lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 8px;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #fff;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+img[tabindex="0"]:focus {
+    outline: 3px solid var(--bg-color); /* Visible outline for focused images */
+}
+
+/* ====== LEGEND BOX ====== */
+.legend-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin: 20px auto;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    padding: 6px 12px;
+    background-color: var(--legend-bg-color);
+    color: var(--legend-text-color);
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 0.9rem;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.legend-icon {
+    margin-right: 8px;
+    font-size: 1em;
+}
+
+/* ====== PROGRESS BAR ====== */
+#progress-bar-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background-color: var(--progress-bar-bg);
+    z-index: 10;
+}
+
+#progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: var(--progress-fill-color);
+    transition: width 0.1s ease;
+}
+
+/* ====== ATHLETE PROFILE IMAGE ====== */
+.athlete-profile {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--accent-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.athlete-profile:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.athlete-profile1 {
+    width: 25%;
+    height: 25%;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+    .athlete-profile1 {
+        width: 20%;
+        height: 10%;
+        margin-left: 1rem;
+    }
+}
+
+/* ====== FEATURED ATHLETES ====== */
+.featured-athletes {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.athlete-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.athlete-card {
+    max-width: 200px;
+    text-align: center;
+    background-color: var(--card-bg-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.athlete-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    min-height: 2rem;
+    text-align: center;
+    width: 100%;
+}
