@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Homepage</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-theme="light">
+
+    <!-- Progress Bar -->
+    <div id="progress-bar-container">
+        <div id="progress-bar"></div>
+    </div>
+
+    <!-- Lightbox Overlay Structure -->
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <img id="lightbox-img" src="" alt="Enlarged image">
+    </div>
+
+    <!-- Header Section -->
+    <header class="sticky-header">
+        <h1>Welcome to the Team Homepage</h1>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main" class="container">
+        <!-- Introduction Section -->
+        <section class="intro">
+            <p>Explore athlete profiles, view seasonal records, and get to know more about our team. Select a category below to get started:</p>
+        </section>
+
+        <!-- Navigation Links -->
+        <section class="nav-section">
+            <h2>Navigate to Sections</h2>
+            <ul>
+                <li><a href="./mens_team/Alex%20Nemecek18820260.html" class="button">Men's Team</a></li>
+                <li><a href="./womens_team/Adrienne%20Stewart21142907.html" class="button">Women's Team</a></li>
+            </ul>
+        </section>
+
+        <!-- Featured Athletes Section -->
+        <section class="featured-athletes">
+            <h2>Featured Athletes</h2>
+            <div class="athlete-grid">
+                <!-- Men's Team Featured Athlete - Kyle Krasan -->
+                <div class="athlete-card">
+                    <h3>Men's Team Featured Athlete</h3>
+                    <img src="images/profiles/21245954.jpg" alt="Profile picture of Kyle Krasan" tabindex="0" class="athlete-profile" onclick="openLightbox('images/profiles/21245954.jpg')">
+                    <h3>Kyle Krasan</h3>
+                    <a href="./mens_team/Kyle%20Krasan21245954.html" class="button">View Profile</a>
+                </div>
+
+                <!-- Women's Team Featured Athlete - Alison Kauffman -->
+                <div class="athlete-card">
+                    <h3>Women's Team Featured Athlete</h3>
+                    <img src="images/profiles/23564882.jpg" alt="Profile picture of Alison Kauffman" tabindex="0" class="athlete-profile" onclick="openLightbox('images/profiles/23564882.jpg')">
+                    <h3>Alison Kauffman</h3>
+                    <a href="./womens_team/Alison%20Kauffman23564882.html" class="button">View Profile</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating Theme Toggle Button -->
+    <div class="theme-toggle-container">
+        <button class="toggle-arrow" onclick="toggleThemeOptions()">&#9650;</button>
+        <div class="theme-options">
+            <button onclick="setTheme('light')">Light</button>
+            <button onclick="setTheme('dark')">Dark</button>
+            <button onclick="setTheme('high-contrast')">High Contrast</button>
+        </div>
+    </div>
+
+    <!-- JavaScript for Theme Toggle, Lightbox, and Progress Bar Functionality -->
+    <script>
+        // Progress Bar Function
+        document.addEventListener("DOMContentLoaded", function() {
+            const progressBar = document.getElementById("progress-bar");
+        
+            function updateProgressBar() {
+                const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const progress = (scrollTop / scrollHeight) * 100;
+                progressBar.style.width = progress + "%";
+            }
+        
+            window.addEventListener("scroll", updateProgressBar);
+        });
+
+        // Theme Toggle Functionality
+        function setTheme(theme) {
+            document.body.setAttribute("data-theme", theme);
+            localStorage.setItem("theme", theme);
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const savedTheme = localStorage.getItem("theme");
+            if (savedTheme) {
+                setTheme(savedTheme);
+            } else {
+                const prefersDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+                setTheme(prefersDarkMode ? "dark" : "light");
+            }
+        });
+    
+        function toggleThemeOptions() {
+            const themeOptions = document.querySelector('.theme-options');
+            themeOptions.classList.toggle('active');
+        }
+
+        // Lightbox Functions
+        function openLightbox(src) {
+            const lightbox = document.getElementById("lightbox");
+            const lightboxImg = document.getElementById("lightbox-img");
+            lightboxImg.src = src;
+            lightbox.style.display = "flex";
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById("lightbox");
+            lightbox.style.display = "none";
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const profileImages = document.querySelectorAll("img[tabindex='0']");
+
+            profileImages.forEach(img => {
+                img.addEventListener("click", function() {
+                    openLightbox(img.src);
+                });
+
+                img.addEventListener("keydown", function(event) {
+                    if (event.key === "Enter") {
+                        openLightbox(img.src);
+                    }
+                });
+            });
+
+            document.addEventListener("keydown", function(event) {
+                if (event.key === "Escape") {
+                    closeLightbox();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
